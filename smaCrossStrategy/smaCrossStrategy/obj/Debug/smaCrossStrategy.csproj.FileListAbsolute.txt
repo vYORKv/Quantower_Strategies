@@ -1,0 +1,12 @@
+D:\Program Files (x86)\AMP Quantower\AMP Quantower\Settings\Scripts\Strategies\smaCrossStrategy\smaCrossStrategy.deps.json
+D:\Program Files (x86)\AMP Quantower\AMP Quantower\Settings\Scripts\Strategies\smaCrossStrategy\smaCrossStrategy.dll
+D:\Program Files (x86)\AMP Quantower\AMP Quantower\Settings\Scripts\Strategies\smaCrossStrategy\smaCrossStrategy.pdb
+D:\VS Studio Repos\Strategies\smaCrossStrategy\smaCrossStrategy\obj\Debug\smaCrossStrategy.csproj.AssemblyReference.cache
+D:\VS Studio Repos\Strategies\smaCrossStrategy\smaCrossStrategy\obj\Debug\smaCrossStrategy.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS Studio Repos\Strategies\smaCrossStrategy\smaCrossStrategy\obj\Debug\smaCrossStrategy.AssemblyInfoInputs.cache
+D:\VS Studio Repos\Strategies\smaCrossStrategy\smaCrossStrategy\obj\Debug\smaCrossStrategy.AssemblyInfo.cs
+D:\VS Studio Repos\Strategies\smaCrossStrategy\smaCrossStrategy\obj\Debug\smaCrossStrategy.csproj.CoreCompileInputs.cache
+D:\VS Studio Repos\Strategies\smaCrossStrategy\smaCrossStrategy\obj\Debug\smaCrossStrategy.dll
+D:\VS Studio Repos\Strategies\smaCrossStrategy\smaCrossStrategy\obj\Debug\refint\smaCrossStrategy.dll
+D:\VS Studio Repos\Strategies\smaCrossStrategy\smaCrossStrategy\obj\Debug\smaCrossStrategy.pdb
+D:\VS Studio Repos\Strategies\smaCrossStrategy\smaCrossStrategy\obj\Debug\ref\smaCrossStrategy.dll
