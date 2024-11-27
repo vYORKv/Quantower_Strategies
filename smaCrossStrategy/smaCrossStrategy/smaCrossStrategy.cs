@@ -51,7 +51,8 @@ namespace SimpleMACross
 
         private Indicator indicatorFastMA;
         private Indicator indicatorSlowMA;
-
+        //private Indicator indicatorClass;
+        //private Position currentPosition;
         private HistoricalData hdm;
 
         private int longPositionsCount;
@@ -213,7 +214,10 @@ namespace SimpleMACross
 
         private void OnUpdate()
         {
+
+            
             var positions = Core.Instance.Positions.Where(x => x.Symbol == this.CurrentSymbol && x.Account == this.CurrentAccount).ToArray();
+            //double pnlTicks = positions.Sum(x => x.GrossPnLTicks);
 
             if (this.waitOpenPosition)
                 return;
@@ -223,8 +227,12 @@ namespace SimpleMACross
 
             if (positions.Any())
             {
-                // Closing Positions
-                if (this.indicatorFastMA.GetValue(1) < this.indicatorSlowMA.GetValue(1) || this.indicatorFastMA.GetValue(1) > this.indicatorSlowMA.GetValue(1))
+                //return;
+                //var pnl = currentPosition.GrossPnLTicks;
+                //// Closing Positions
+                ////if (this.indicatorFastMA.GetValue(1) < this.indicatorSlowMA.GetValue(1) || this.indicatorFastMA.GetValue(1) > this.indicatorSlowMA.GetValue(1)) 
+                double pnlTicks = positions.Sum(x => x.GrossPnLTicks);
+                if (pnlTicks > 29 || pnlTicks < -9)
                 {
                     this.waitClosePositions = true;
                     this.Log($"Start close positions ({positions.Length})");
@@ -254,7 +262,8 @@ namespace SimpleMACross
                     {
                         Account = this.CurrentAccount,
                         Symbol = this.CurrentSymbol,
-
+                        //TakeProfit = SlTpHolder.CreateTP(30, PriceMeasurement.Offset), // Added
+                        //StopLoss = SlTpHolder.CreateSL(10, PriceMeasurement.Offset), // Added
                         OrderTypeId = this.orderTypeId,
                         Quantity = this.Quantity,
                         Side = Side.Buy,
@@ -276,7 +285,8 @@ namespace SimpleMACross
                     {
                         Account = this.CurrentAccount,
                         Symbol = this.CurrentSymbol,
-
+                        //TakeProfit = SlTpHolder.CreateTP(30, PriceMeasurement.Offset), // Added
+                        //StopLoss = SlTpHolder.CreateSL(10, PriceMeasurement.Offset), // Added
                         OrderTypeId = this.orderTypeId,
                         Quantity = this.Quantity,
                         Side = Side.Sell,
