@@ -51,6 +51,18 @@ namespace SimpleMACross
         [InputParameter("Start point", 6)]
         public DateTime StartPoint { get; set; }
 
+        [InputParameter("Multiplicative")]
+        public double multiplicative = 2.0;
+
+        [InputParameter("Stoploss")]
+        public int stoploss = 100;
+
+        [InputParameter("Trailing Stoploss")]
+        public int trailingStop = 30;
+
+        [InputParameter("Profit Threshold")]
+        public int profitThreshold = 40;
+
         public override string[] MonitoringConnectionsIds => new string[] { this.CurrentSymbol?.ConnectionId, this.CurrentAccount?.ConnectionId };
 
         private Indicator indicatorFastMA;
@@ -81,7 +93,7 @@ namespace SimpleMACross
 
             this.FastMA = 10;
             this.SlowMA = 20;
-            this.Period = Period.MIN5;
+            this.Period = Period.SECOND30;
             this.StartPoint = Core.TimeUtils.DateTimeUtcNow.AddDays(-100);
         }
 
@@ -191,6 +203,7 @@ namespace SimpleMACross
 
             if (!positions.Any())
                 this.waitClosePositions = false;
+                this.inPosition = false;
         }
 
         private void Core_OrdersHistoryAdded(OrderHistory obj)
@@ -257,6 +270,10 @@ namespace SimpleMACross
 
             //this.Log($"{sma_10_3}");
             //this.Log($"{this.indicatorFastMA}");
+            //this.Log($"{prevSide}");
+
+            this.Log($"Previous Side: {prevSide}");
+            this.Log($"In Position: {inPosition}");
 
             /////////////// SMA Spread Variables \\\\\\\\\\\\\\\
 
@@ -271,6 +288,8 @@ namespace SimpleMACross
             double sma_10_x = this.indicatorFastMA.GetValue(0);
             double sma_20_x = this.indicatorSlowMA.GetValue(0);
             double diff_0_x = Math.Abs(sma_10_x - sma_20_x);
+
+
 
 
             if (this.waitOpenPosition)
@@ -298,6 +317,7 @@ namespace SimpleMACross
                 }
             }
 
+            
 
             if (positions.Any())
             {
@@ -330,6 +350,15 @@ namespace SimpleMACross
                 double lastLow_x = HistoricalDataExtensions.Low(this.hdm, 1);
                 double lastHigh_x = HistoricalDataExtensions.High(this.hdm, 1);
 
+
+                // if (pnlTicks >= profitThreshold && tsInit == false)
+                // {
+                //   Cancel any previous stoploss orders
+                //   Create new trailing stop with trailingStop
+                //   Perhaps also add bool to indicate trailing stop has been initiated [tsInit]
+                // }
+
+
                 if (sma_10_x > sma_20_x)
                 {
                     if (price_x < lastLow_x || pnlTicks > 150)
@@ -339,6 +368,7 @@ namespace SimpleMACross
 
                         foreach (var item in positions)
                         {
+                            //item.StopLoss.Cancel(); // Doesn't work. Actually breaks the position close. Gotta find another way to do this here.
                             var result = item.Close();
 
                             if (result.Status == TradingOperationResultStatus.Failure)
@@ -363,7 +393,9 @@ namespace SimpleMACross
 
                         foreach (var item in positions)
                         {
+                            //item.StopLoss.Cancel(); // Doesn't work. Actually breaks the position close. Gotta find another way to do this here.
                             var result = item.Close();
+                            
 
                             if (result.Status == TradingOperationResultStatus.Failure)
                             {
@@ -409,15 +441,15 @@ namespace SimpleMACross
 
                 //this.Log($"Test SMA : {testSMA}");
 
-                this.Log($"diff_0: {diff_0}");
-                this.Log($"diff_avg: {diff_avg}");
+                //this.Log($"diff_0: {diff_0}");
+                //this.Log($"diff_avg: {diff_avg}");
                 //this.Log($"sma_10: {sma_10}");
                 //this.Log($"prevSide: {this.prevSide}");
                 //this.Log($"inPosition: {this.inPosition}");
 
-                if (diff_0 > diff_avg * 2.0 && this.inPosition == false && prevSide == "none")
+                if (diff_0 > diff_avg * multiplicative && this.inPosition == false && prevSide == "none")
                 {
-                    this.Log("Arrow Signal");
+                    //this.Log("Arrow Signal");
                     //if (this.indicatorFastMA.GetValue(2) < this.indicatorSlowMA.GetValue(2) && this.indicatorFastMA.GetValue(1) > this.indicatorSlowMA.GetValue(1))
                     if (sma_10 > sma_20)
                     {
@@ -428,7 +460,8 @@ namespace SimpleMACross
                             Account = this.CurrentAccount,
                             Symbol = this.CurrentSymbol,
                             //TakeProfit = SlTpHolder.CreateTP(30, PriceMeasurement.Offset), // Added
-                            //StopLoss = SlTpHolder.CreateSL(10, PriceMeasurement.Offset), // Added
+                            StopLoss = SlTpHolder.CreateSL(stoploss, PriceMeasurement.Offset), // Added
+                            //StopLoss = SlTpHolder.CreateSL(trailingStop, PriceMeasurement.Offset, true),
                             OrderTypeId = this.orderTypeId,
                             Quantity = this.Quantity,
                             Side = Side.Buy,
@@ -456,7 +489,8 @@ namespace SimpleMACross
                             Account = this.CurrentAccount,
                             Symbol = this.CurrentSymbol,
                             //TakeProfit = SlTpHolder.CreateTP(30, PriceMeasurement.Offset), // Added
-                            //StopLoss = SlTpHolder.CreateSL(10, PriceMeasurement.Offset), // Added
+                            StopLoss = SlTpHolder.CreateSL(stoploss, PriceMeasurement.Offset), // Added
+                            //StopLoss = SlTpHolder.CreateSL(trailingStop, PriceMeasurement.Offset, true),
                             OrderTypeId = this.orderTypeId,
                             Quantity = this.Quantity,
                             Side = Side.Sell,
