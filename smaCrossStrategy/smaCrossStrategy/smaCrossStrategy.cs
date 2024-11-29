@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Threading;
 using TradingPlatform.BusinessLayer;
 
 namespace SimpleMACross
@@ -32,8 +33,11 @@ namespace SimpleMACross
         /// <summary>
         /// Quantity to open order
         /// </summary>
-        [InputParameter("Quantity", 4, 0.1, 99999, 0.1, 2)]
-        public double Quantity { get; set; }
+        //[InputParameter("Quantity", 4, 0.1, 99999, 0.1, 2)]
+        //public double Quantity { get; set; }
+
+        [InputParameter("Quantity")]
+        public int Quantity = 1;
 
         /// <summary>
         /// Period to load history
@@ -61,6 +65,9 @@ namespace SimpleMACross
 
         private bool waitOpenPosition;
         private bool waitClosePositions;
+
+        private bool inPosition = false;
+        private string prevSide = "none";
 
         private double totalNetPl;
         private double totalGrossPl;
@@ -212,93 +219,261 @@ namespace SimpleMACross
 
         private void Hdm_HistoryItemUpdated(object sender, HistoryEventArgs e) => this.OnUpdate();
 
+
         private void OnUpdate()
         {
+            /// Previous Open and Close potential code
+            //lookback= 1
+            //historicaldata.GetPrice(PriceType.Close, lookback)
+            //double lastLow = historicaldata.GetPrice(PriceType.Low, 1);
+            //double lastHigh = historicaldata.GetPrice(PriceType.High, 1);
+            /// Previous Open and Close potential code
 
-            
+            /////////////// SMA Spread Variables \\\\\\\\\\\\\\\
+
+            //double sma_10 = this.indicatorFastMA.GetValue(0);
+            //double sma_20 = this.indicatorSlowMA.GetValue(0);
+            //double diff_0 = Math.Abs(sma_10 - sma_20);
+
+            //double sma_10_3 = this.indicatorFastMA.GetValue(3);
+            //double sma_20_3 = this.indicatorSlowMA.GetValue(3);
+            //double sma_10_4 = this.indicatorFastMA.GetValue(4);
+            //double sma_20_4 = this.indicatorSlowMA.GetValue(4);
+            //double sma_10_5 = this.indicatorFastMA.GetValue(5);
+            //double sma_20_5 = this.indicatorSlowMA.GetValue(5);
+            //double sma_10_6 = this.indicatorFastMA.GetValue(6);
+            //double sma_20_6 = this.indicatorSlowMA.GetValue(6);
+            //double sma_10_7 = this.indicatorFastMA.GetValue(7);
+            //double sma_20_7 = this.indicatorSlowMA.GetValue(7);
+
+            //double diff_3 = Math.Abs(sma_10_3 - sma_20_3);
+            //double diff_4 = Math.Abs(sma_10_4 - sma_20_4);
+            //double diff_5 = Math.Abs(sma_10_5 - sma_20_5);
+            //double diff_6 = Math.Abs(sma_10_6 - sma_20_6);
+            //double diff_7 = Math.Abs(sma_10_7 - sma_20_7);
+
+            //double diff_sum = diff_3 + diff_4 + diff_5 + diff_6 + diff_7;
+            //double diff_avg = diff_sum / 5;
+
+            //this.Log($"{sma_10_3}");
+            //this.Log($"{this.indicatorFastMA}");
+
+            /////////////// SMA Spread Variables \\\\\\\\\\\\\\\
+
+            //double price = HistoricalDataExtensions.Close(this.hdm, 0);
+            ////double currentPrice = Core.Instance.Positions.Any(currentPrice);
+            //double lastLow = HistoricalDataExtensions.Low(this.hdm, 1);
+            //double lastHigh = HistoricalDataExtensions.High(this.hdm, 1);
+
             var positions = Core.Instance.Positions.Where(x => x.Symbol == this.CurrentSymbol && x.Account == this.CurrentAccount).ToArray();
             //double pnlTicks = positions.Sum(x => x.GrossPnLTicks);
 
+            double sma_10_x = this.indicatorFastMA.GetValue(0);
+            double sma_20_x = this.indicatorSlowMA.GetValue(0);
+            double diff_0_x = Math.Abs(sma_10_x - sma_20_x);
+
+
             if (this.waitOpenPosition)
+            {
                 return;
+            }
 
             if (this.waitClosePositions)
+            {
                 return;
+            }
+
+            if (this.prevSide == "buy")
+            {
+                if (sma_10_x <= sma_20_x)
+                {
+                    this.prevSide = "none";
+                }
+            }
+            else if (this.prevSide == "sell")
+            {
+                if (sma_10_x >= sma_20_x)
+                {
+                    this.prevSide = "none";
+                }
+            }
+
 
             if (positions.Any())
             {
+                //this.Log("Open Positions");
                 //return;
                 //var pnl = currentPosition.GrossPnLTicks;
                 //// Closing Positions
                 ////if (this.indicatorFastMA.GetValue(1) < this.indicatorSlowMA.GetValue(1) || this.indicatorFastMA.GetValue(1) > this.indicatorSlowMA.GetValue(1)) 
                 double pnlTicks = positions.Sum(x => x.GrossPnLTicks);
-                if (pnlTicks > 29 || pnlTicks < -9)
+                //if (pnlTicks > 29 || pnlTicks < -9)
+                //{
+                //    this.waitClosePositions = true;
+                //    this.Log($"Start close positions ({positions.Length})");
+
+                //    foreach (var item in positions)
+                //    {
+                //        var result = item.Close();
+
+                //        if (result.Status == TradingOperationResultStatus.Failure)
+                //        {
+                //            this.Log($"Close positions refuse: {(string.IsNullOrEmpty(result.Message) ? result.Status : result.Message)}", StrategyLoggingLevel.Trading);
+                //            this.ProcessTradingRefuse();
+                //        }
+                //        else
+                //            this.Log($"Position was close: {result.Status}", StrategyLoggingLevel.Trading);
+                //    }
+                //}
+
+                double price_x = HistoricalDataExtensions.Close(this.hdm, 0);
+                double lastLow_x = HistoricalDataExtensions.Low(this.hdm, 1);
+                double lastHigh_x = HistoricalDataExtensions.High(this.hdm, 1);
+
+                if (sma_10_x > sma_20_x)
                 {
-                    this.waitClosePositions = true;
-                    this.Log($"Start close positions ({positions.Length})");
-
-                    foreach (var item in positions)
+                    if (price_x < lastLow_x || pnlTicks > 150)
                     {
-                        var result = item.Close();
+                        this.waitClosePositions = true;
+                        this.Log($"Start close positions ({positions.Length})");
 
-                        if (result.Status == TradingOperationResultStatus.Failure)
+                        foreach (var item in positions)
                         {
-                            this.Log($"Close positions refuse: {(string.IsNullOrEmpty(result.Message) ? result.Status : result.Message)}", StrategyLoggingLevel.Trading);
-                            this.ProcessTradingRefuse();
+                            var result = item.Close();
+
+                            if (result.Status == TradingOperationResultStatus.Failure)
+                            {
+                                this.Log($"Close positions refuse: {(string.IsNullOrEmpty(result.Message) ? result.Status : result.Message)}", StrategyLoggingLevel.Trading);
+                                this.ProcessTradingRefuse();
+                            }
+                            else
+                            {
+                                this.Log($"Position was close: {result.Status}", StrategyLoggingLevel.Trading);
+                                this.inPosition = false;
+                            }   
                         }
-                        else
-                            this.Log($"Position was close: {result.Status}", StrategyLoggingLevel.Trading);
+                    }
+                }
+                else if (sma_10_x < sma_20_x)
+                {
+                    if (price_x > lastHigh_x || pnlTicks > 150)
+                    {
+                        this.waitClosePositions = true;
+                        this.Log($"Start close positions ({positions.Length})");
+
+                        foreach (var item in positions)
+                        {
+                            var result = item.Close();
+
+                            if (result.Status == TradingOperationResultStatus.Failure)
+                            {
+                                this.Log($"Close positions refuse: {(string.IsNullOrEmpty(result.Message) ? result.Status : result.Message)}", StrategyLoggingLevel.Trading);
+                                this.ProcessTradingRefuse();
+                            }
+                            else
+                            {
+                                this.Log($"Position was close: {result.Status}", StrategyLoggingLevel.Trading);
+                                this.inPosition = false;
+                            }  
+                        }
                     }
                 }
             }
-            else
+            else // Opening New Positions
             {
-                // Opening New Positions
-                if (this.indicatorFastMA.GetValue(2) < this.indicatorSlowMA.GetValue(2) && this.indicatorFastMA.GetValue(1) > this.indicatorSlowMA.GetValue(1))
-                {
-                    this.waitOpenPosition = true;
-                    this.Log("Start open buy position");
-                    var result = Core.Instance.PlaceOrder(new PlaceOrderRequestParameters()
-                    {
-                        Account = this.CurrentAccount,
-                        Symbol = this.CurrentSymbol,
-                        //TakeProfit = SlTpHolder.CreateTP(30, PriceMeasurement.Offset), // Added
-                        //StopLoss = SlTpHolder.CreateSL(10, PriceMeasurement.Offset), // Added
-                        OrderTypeId = this.orderTypeId,
-                        Quantity = this.Quantity,
-                        Side = Side.Buy,
-                    });
+                double testSMA = this.indicatorFastMA.GetValue(2);
 
-                    if (result.Status == TradingOperationResultStatus.Failure)
-                    {
-                        this.Log($"Place buy order refuse: {(string.IsNullOrEmpty(result.Message) ? result.Status : result.Message)}", StrategyLoggingLevel.Trading);
-                        this.ProcessTradingRefuse();
-                    }
-                    else
-                        this.Log($"Position open: {result.Status}", StrategyLoggingLevel.Trading);
-                }
-                else if (this.indicatorFastMA.GetValue(2) > this.indicatorSlowMA.GetValue(2) && this.indicatorFastMA.GetValue(1) < this.indicatorSlowMA.GetValue(1))
-                {
-                    this.waitOpenPosition = true;
-                    this.Log("Start open sell position");
-                    var result = Core.Instance.PlaceOrder(new PlaceOrderRequestParameters()
-                    {
-                        Account = this.CurrentAccount,
-                        Symbol = this.CurrentSymbol,
-                        //TakeProfit = SlTpHolder.CreateTP(30, PriceMeasurement.Offset), // Added
-                        //StopLoss = SlTpHolder.CreateSL(10, PriceMeasurement.Offset), // Added
-                        OrderTypeId = this.orderTypeId,
-                        Quantity = this.Quantity,
-                        Side = Side.Sell,
-                    });
+                double sma_10 = this.indicatorFastMA.GetValue(0);
+                double sma_20 = this.indicatorSlowMA.GetValue(0);
+                double diff_0 = Math.Abs(sma_10 - sma_20);
 
-                    if (result.Status == TradingOperationResultStatus.Failure)
+                double sma_10_3 = this.indicatorFastMA.GetValue(3);
+                double sma_20_3 = this.indicatorSlowMA.GetValue(3);
+                double sma_10_4 = this.indicatorFastMA.GetValue(4);
+                double sma_20_4 = this.indicatorSlowMA.GetValue(4);
+                double sma_10_5 = this.indicatorFastMA.GetValue(5);
+                double sma_20_5 = this.indicatorSlowMA.GetValue(5);
+                double sma_10_6 = this.indicatorFastMA.GetValue(6);
+                double sma_20_6 = this.indicatorSlowMA.GetValue(6);
+                double sma_10_7 = this.indicatorFastMA.GetValue(7);
+                double sma_20_7 = this.indicatorSlowMA.GetValue(7);
+
+                double diff_3 = Math.Abs(sma_10_3 - sma_20_3);
+                double diff_4 = Math.Abs(sma_10_4 - sma_20_4);
+                double diff_5 = Math.Abs(sma_10_5 - sma_20_5);
+                double diff_6 = Math.Abs(sma_10_6 - sma_20_6);
+                double diff_7 = Math.Abs(sma_10_7 - sma_20_7);
+
+                double diff_sum = diff_3 + diff_4 + diff_5 + diff_6 + diff_7;
+                double diff_avg = diff_sum / 5;
+
+                //this.Log($"Test SMA : {testSMA}");
+
+                this.Log($"diff_0: {diff_0}");
+                this.Log($"diff_avg: {diff_avg}");
+                //this.Log($"sma_10: {sma_10}");
+                //this.Log($"prevSide: {this.prevSide}");
+                //this.Log($"inPosition: {this.inPosition}");
+
+                if (diff_0 > diff_avg * 2.0 && this.inPosition == false && prevSide == "none")
+                {
+                    this.Log("Arrow Signal");
+                    //if (this.indicatorFastMA.GetValue(2) < this.indicatorSlowMA.GetValue(2) && this.indicatorFastMA.GetValue(1) > this.indicatorSlowMA.GetValue(1))
+                    if (sma_10 > sma_20)
                     {
-                        this.Log($"Place sell order refuse: {(string.IsNullOrEmpty(result.Message) ? result.Status : result.Message)}", StrategyLoggingLevel.Trading);
-                        this.ProcessTradingRefuse();
+                        this.waitOpenPosition = true;
+                        this.Log("Start open buy position");
+                        var result = Core.Instance.PlaceOrder(new PlaceOrderRequestParameters()
+                        {
+                            Account = this.CurrentAccount,
+                            Symbol = this.CurrentSymbol,
+                            //TakeProfit = SlTpHolder.CreateTP(30, PriceMeasurement.Offset), // Added
+                            //StopLoss = SlTpHolder.CreateSL(10, PriceMeasurement.Offset), // Added
+                            OrderTypeId = this.orderTypeId,
+                            Quantity = this.Quantity,
+                            Side = Side.Buy,
+                        });
+
+                        if (result.Status == TradingOperationResultStatus.Failure)
+                        {
+                            this.Log($"Place buy order refuse: {(string.IsNullOrEmpty(result.Message) ? result.Status : result.Message)}", StrategyLoggingLevel.Trading);
+                            this.ProcessTradingRefuse();
+                        }
+                        else
+                        {
+                            this.Log($"Position open: {result.Status}", StrategyLoggingLevel.Trading);
+                            this.inPosition = true;
+                            this.prevSide = "buy";
+                        }
                     }
-                    else
-                        this.Log($"Position open: {result.Status}", StrategyLoggingLevel.Trading);
+                    //else if (this.indicatorFastMA.GetValue(2) > this.indicatorSlowMA.GetValue(2) && this.indicatorFastMA.GetValue(1) < this.indicatorSlowMA.GetValue(1))
+                    else if (sma_10 < sma_20)
+                    {
+                        this.waitOpenPosition = true;
+                        this.Log("Start open sell position");
+                        var result = Core.Instance.PlaceOrder(new PlaceOrderRequestParameters()
+                        {
+                            Account = this.CurrentAccount,
+                            Symbol = this.CurrentSymbol,
+                            //TakeProfit = SlTpHolder.CreateTP(30, PriceMeasurement.Offset), // Added
+                            //StopLoss = SlTpHolder.CreateSL(10, PriceMeasurement.Offset), // Added
+                            OrderTypeId = this.orderTypeId,
+                            Quantity = this.Quantity,
+                            Side = Side.Sell,
+                        });
+
+                        if (result.Status == TradingOperationResultStatus.Failure)
+                        {
+                            this.Log($"Place sell order refuse: {(string.IsNullOrEmpty(result.Message) ? result.Status : result.Message)}", StrategyLoggingLevel.Trading);
+                            this.ProcessTradingRefuse();
+                        }
+                        else
+                        {
+                            this.Log($"Position open: {result.Status}", StrategyLoggingLevel.Trading);
+                            this.inPosition = true;
+                            this.prevSide = "sell";
+                        }
+                    }
                 }
             }
         }
