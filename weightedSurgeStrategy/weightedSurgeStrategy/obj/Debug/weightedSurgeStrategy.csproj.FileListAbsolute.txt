@@ -1,0 +1,12 @@
+D:\Program Files (x86)\AMP Quantower\AMP Quantower\Settings\Scripts\Strategies\weightedSurgeStrategy\weightedSurgeStrategy.deps.json
+D:\Program Files (x86)\AMP Quantower\AMP Quantower\Settings\Scripts\Strategies\weightedSurgeStrategy\weightedSurgeStrategy.dll
+D:\Program Files (x86)\AMP Quantower\AMP Quantower\Settings\Scripts\Strategies\weightedSurgeStrategy\weightedSurgeStrategy.pdb
+D:\VS Studio Repos\Strategies\weightedSurgeStrategy\weightedSurgeStrategy\obj\Debug\weightedSurgeStrategy.csproj.AssemblyReference.cache
+D:\VS Studio Repos\Strategies\weightedSurgeStrategy\weightedSurgeStrategy\obj\Debug\weightedSurgeStrategy.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS Studio Repos\Strategies\weightedSurgeStrategy\weightedSurgeStrategy\obj\Debug\weightedSurgeStrategy.AssemblyInfoInputs.cache
+D:\VS Studio Repos\Strategies\weightedSurgeStrategy\weightedSurgeStrategy\obj\Debug\weightedSurgeStrategy.AssemblyInfo.cs
+D:\VS Studio Repos\Strategies\weightedSurgeStrategy\weightedSurgeStrategy\obj\Debug\weightedSurgeStrategy.csproj.CoreCompileInputs.cache
+D:\VS Studio Repos\Strategies\weightedSurgeStrategy\weightedSurgeStrategy\obj\Debug\weightedSurgeStrategy.dll
+D:\VS Studio Repos\Strategies\weightedSurgeStrategy\weightedSurgeStrategy\obj\Debug\refint\weightedSurgeStrategy.dll
+D:\VS Studio Repos\Strategies\weightedSurgeStrategy\weightedSurgeStrategy\obj\Debug\weightedSurgeStrategy.pdb
+D:\VS Studio Repos\Strategies\weightedSurgeStrategy\weightedSurgeStrategy\obj\Debug\ref\weightedSurgeStrategy.dll

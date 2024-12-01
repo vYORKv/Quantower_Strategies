@@ -1,0 +1,12 @@
+D:\Program Files (x86)\AMP Quantower\AMP Quantower\Settings\Scripts\Strategies\priceSurgeStrategy\priceSurgeStrategy.deps.json
+D:\Program Files (x86)\AMP Quantower\AMP Quantower\Settings\Scripts\Strategies\priceSurgeStrategy\priceSurgeStrategy.dll
+D:\Program Files (x86)\AMP Quantower\AMP Quantower\Settings\Scripts\Strategies\priceSurgeStrategy\priceSurgeStrategy.pdb
+D:\VS Studio Repos\Strategies\priceSurgeStrategy\priceSurgeStrategy\obj\Debug\priceSurgeStrategy.csproj.AssemblyReference.cache
+D:\VS Studio Repos\Strategies\priceSurgeStrategy\priceSurgeStrategy\obj\Debug\priceSurgeStrategy.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS Studio Repos\Strategies\priceSurgeStrategy\priceSurgeStrategy\obj\Debug\priceSurgeStrategy.AssemblyInfoInputs.cache
+D:\VS Studio Repos\Strategies\priceSurgeStrategy\priceSurgeStrategy\obj\Debug\priceSurgeStrategy.AssemblyInfo.cs
+D:\VS Studio Repos\Strategies\priceSurgeStrategy\priceSurgeStrategy\obj\Debug\priceSurgeStrategy.csproj.CoreCompileInputs.cache
+D:\VS Studio Repos\Strategies\priceSurgeStrategy\priceSurgeStrategy\obj\Debug\priceSurgeStrategy.dll
+D:\VS Studio Repos\Strategies\priceSurgeStrategy\priceSurgeStrategy\obj\Debug\refint\priceSurgeStrategy.dll
+D:\VS Studio Repos\Strategies\priceSurgeStrategy\priceSurgeStrategy\obj\Debug\priceSurgeStrategy.pdb
+D:\VS Studio Repos\Strategies\priceSurgeStrategy\priceSurgeStrategy\obj\Debug\ref\priceSurgeStrategy.dll
