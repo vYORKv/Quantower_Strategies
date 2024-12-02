@@ -1,0 +1,12 @@
+C:\Users\William\Desktop\AMP Quantower\Settings\Scripts\Strategies\rangeScalpStrategy\rangeScalpStrategy.deps.json
+C:\Users\William\Desktop\AMP Quantower\Settings\Scripts\Strategies\rangeScalpStrategy\rangeScalpStrategy.dll
+C:\Users\William\Desktop\AMP Quantower\Settings\Scripts\Strategies\rangeScalpStrategy\rangeScalpStrategy.pdb
+C:\Users\William\Documents\Visual Studio Repos\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.csproj.AssemblyReference.cache
+C:\Users\William\Documents\Visual Studio Repos\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\William\Documents\Visual Studio Repos\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.AssemblyInfoInputs.cache
+C:\Users\William\Documents\Visual Studio Repos\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.AssemblyInfo.cs
+C:\Users\William\Documents\Visual Studio Repos\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.csproj.CoreCompileInputs.cache
+C:\Users\William\Documents\Visual Studio Repos\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.dll
+C:\Users\William\Documents\Visual Studio Repos\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\refint\rangeScalpStrategy.dll
+C:\Users\William\Documents\Visual Studio Repos\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.pdb
+C:\Users\William\Documents\Visual Studio Repos\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\ref\rangeScalpStrategy.dll
