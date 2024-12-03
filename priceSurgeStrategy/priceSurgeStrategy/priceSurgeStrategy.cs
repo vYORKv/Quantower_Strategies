@@ -58,7 +58,7 @@ namespace PriceSurge
         [InputParameter("Trailing Stoploss")]
         public int trailingStop = 20;
 
-        [InputParameter("Lookback Range (<= 10)")]
+        [InputParameter("Lookback Range (1-10)")]
         public int lookbackRange = 10;
 
         public override string[] MonitoringConnectionsIds => new string[] { this.CurrentSymbol?.ConnectionId, this.CurrentAccount?.ConnectionId };
@@ -237,6 +237,11 @@ namespace PriceSurge
         private void Hdm_OnNewHistoryItem(object sender, HistoryEventArgs args)
         {
             this.newBar = true;
+            double open_1 = HistoricalDataExtensions.Open(this.hdm, 1);
+            double close_1 = HistoricalDataExtensions.Close(this.hdm, 1);
+            double barSize_1 = Math.Abs(open_1 - close_1);
+            double barTicks_1 = barSize_1 / .25;
+            this.Log($"Last bar in ticks: {barTicks_1}");
         }
         private void OnUpdate()
         {
@@ -345,11 +350,35 @@ namespace PriceSurge
             double lookbackSum_10 = bar_1 + bar_2 + bar_3 + bar_4 + bar_5 + bar_6 + bar_7 + bar_8 + bar_9 + bar_10;
             double lookbackAvg_10 = lookbackSum_10 / 10;
 
+            double lookbackSum_9 = bar_1 + bar_2 + bar_3 + bar_4 + bar_5 + bar_6 + bar_7 + bar_8 + bar_9;
+            double lookbackAvg_9 = lookbackSum_9 / 9;
+
+            double lookbackSum_8 = bar_1 + bar_2 + bar_3 + bar_4 + bar_5+ bar_6 + bar_7 + bar_8;
+            double lookbackAvg_8 = lookbackSum_8 / 8;
+
+            double lookbackSum_7 = bar_1 + bar_2 + bar_3 + bar_4 + bar_5 + bar_6 + bar_7;
+            double lookbackAvg_7 = lookbackSum_7 / 7;
+
+            double lookbackSum_6 = bar_1 + bar_2 + bar_3 + bar_4 + bar_5 + bar_6;
+            double lookbackAvg_6 = lookbackSum_6 / 6;
+
             double lookbackSum_5 = bar_1 + bar_2 + bar_3 + bar_4 + bar_5;
             double lookbackAvg_5 = lookbackSum_5 / 5;
 
+            double lookbackSum_4 = bar_1 + bar_2 + bar_3 + bar_4;
+            double lookbackAvg_4 = lookbackSum_4 / 4;
 
+            double lookbackSum_3 = bar_1 + bar_2 + bar_3;
+            double lookbackAvg_3 = lookbackSum_3 / 3;
 
+            double lookbackSum_2 = bar_1 + bar_2;
+            double lookbackAvg_2 = lookbackSum_2 / 2;
+
+            double[] lookbackPeriods = [bar_1, bar_1, lookbackAvg_2, lookbackAvg_3, lookbackAvg_4, lookbackAvg_5, lookbackAvg_6, lookbackAvg_7, lookbackAvg_8, lookbackAvg_9, lookbackAvg_10];
+
+            double lookbackChoice = lookbackPeriods[this.lookbackRange];
+
+            
             //if (this.waitOpenPosition)
             //{
             //    return;
@@ -380,43 +409,43 @@ namespace PriceSurge
 
             if (positions.Length != 0)
             {
-                return;
-                ////this.Log("Open Positions");
-                ////return;
-                ////var pnl = currentPosition.GrossPnLTicks;
-                ////// Closing Positions
-                //////if (this.indicatorFastMA.GetValue(1) < this.indicatorSlowMA.GetValue(1) || this.indicatorFastMA.GetValue(1) > this.indicatorSlowMA.GetValue(1)) 
-                //double pnlTicks = positions.Sum(x => x.GrossPnLTicks);
-                ////if (pnlTicks > 29 || pnlTicks < -9)
-                ////{
-                ////    this.waitClosePositions = true;
-                ////    this.Log($"Start close positions ({positions.Length})");
+                //return;
+                //this.Log("Open Positions");
+                //return;
+                //var pnl = currentPosition.GrossPnLTicks;
+                // Closing Positions
+                //if (this.indicatorFastMA.GetValue(1) < this.indicatorSlowMA.GetValue(1) || this.indicatorFastMA.GetValue(1) > this.indicatorSlowMA.GetValue(1)) 
+                double pnlTicks = positions.Sum(x => x.GrossPnLTicks);
+                if (pnlTicks >= 6 || pnlTicks <= -19)
+                {
+                    this.waitClosePositions = true;
+                    this.Log($"Start close positions ({positions.Length})");
 
-                ////    foreach (var item in positions)
-                ////    {
-                ////        var result = item.Close();
+                    foreach (var item in positions)
+                    {
+                        var result = item.Close();
 
-                ////        if (result.Status == TradingOperationResultStatus.Failure)
-                ////        {
-                ////            this.Log($"Close positions refuse: {(string.IsNullOrEmpty(result.Message) ? result.Status : result.Message)}", StrategyLoggingLevel.Trading);
-                ////            this.ProcessTradingRefuse();
-                ////        }
-                ////        else
-                ////            this.Log($"Position was close: {result.Status}", StrategyLoggingLevel.Trading);
-                ////    }
-                ////}
+                        if (result.Status == TradingOperationResultStatus.Failure)
+                        {
+                            this.Log($"Close positions refuse: {(string.IsNullOrEmpty(result.Message) ? result.Status : result.Message)}", StrategyLoggingLevel.Trading);
+                            this.ProcessTradingRefuse();
+                        }
+                        else
+                            this.Log($"Position was close: {result.Status}", StrategyLoggingLevel.Trading);
+                    }
+                }
 
                 //double price_x = HistoricalDataExtensions.Close(this.hdm, 0);
                 //double lastLow_x = HistoricalDataExtensions.Low(this.hdm, 1);
                 //double lastHigh_x = HistoricalDataExtensions.High(this.hdm, 1);
 
 
-                //// if (pnlTicks >= profitThreshold && tsInit == false)
-                //// {
-                ////   Cancel any previous stoploss orders
-                ////   Create new trailing stop with trailingStop
-                ////   Perhaps also add bool to indicate trailing stop has been initiated [tsInit]
-                //// }
+                //if (pnlTicks >= profitThreshold && tsInit == false)
+                //{
+                //    Cancel any previous stoploss orders
+                //    Create new trailing stop with trailingStop
+                //    Perhaps also add bool to indicate trailing stop has been initiated[tsInit]
+                // }
 
 
                 //if (sma_10_x > sma_20_x)
@@ -473,7 +502,7 @@ namespace PriceSurge
             }
             else // Opening New Positions
             {
-                if (bar_0 > lookbackAvg_10 * this.multiplicative && this.inPosition == false && this.newBar == true)
+                if (bar_0 > lookbackChoice * this.multiplicative && this.inPosition == false && this.newBar == true)
                 {
                     //this.Log("Arrow Signal");
                     //if (this.indicatorFastMA.GetValue(2) < this.indicatorSlowMA.GetValue(2) && this.indicatorFastMA.GetValue(1) > this.indicatorSlowMA.GetValue(1))
@@ -485,8 +514,8 @@ namespace PriceSurge
                         {
                             Account = this.CurrentAccount,
                             Symbol = this.CurrentSymbol,
-                            TakeProfit = SlTpHolder.CreateTP(40, PriceMeasurement.Offset), // Added
-                            StopLoss = SlTpHolder.CreateSL(20, PriceMeasurement.Offset), // Added
+                            //TakeProfit = SlTpHolder.CreateTP(40, PriceMeasurement.Offset), // Added
+                            //StopLoss = SlTpHolder.CreateSL(20, PriceMeasurement.Offset), // Added
                             //StopLoss = SlTpHolder.CreateSL(this.trailingStop, PriceMeasurement.Offset, true),
                             OrderTypeId = this.orderTypeId,
                             Quantity = this.Quantity,
@@ -516,8 +545,8 @@ namespace PriceSurge
                         {
                             Account = this.CurrentAccount,
                             Symbol = this.CurrentSymbol,
-                            TakeProfit = SlTpHolder.CreateTP(40, PriceMeasurement.Offset), // Added
-                            StopLoss = SlTpHolder.CreateSL(20, PriceMeasurement.Offset), // Added
+                            //TakeProfit = SlTpHolder.CreateTP(40, PriceMeasurement.Offset), // Added
+                            //StopLoss = SlTpHolder.CreateSL(20, PriceMeasurement.Offset), // Added
                             //StopLoss = SlTpHolder.CreateSL(this.trailingStop, PriceMeasurement.Offset, true),
                             OrderTypeId = this.orderTypeId,
                             Quantity = this.Quantity,

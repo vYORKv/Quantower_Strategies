@@ -46,6 +46,12 @@ namespace RangeScalp
         [InputParameter("Stop Loss")]
         public int stopLoss = 40;
 
+        [InputParameter("Max Profit")]
+        public double maxProfit = 200.0;
+
+        [InputParameter("Max Loss")]
+        public double maxLoss = -200.0;
+
 
         public override string[] MonitoringConnectionsIds => new string[] { this.CurrentSymbol?.ConnectionId, this.CurrentAccount?.ConnectionId };
 
@@ -70,6 +76,8 @@ namespace RangeScalp
         private double rangeLow = 999999.0;
         private bool buyPermitted = false;
         private bool sellPermitted = false;
+        private bool openBuy = false;
+        private bool openSell = false;
 
         private double totalNetPl;
         private double totalGrossPl;
@@ -194,9 +202,11 @@ namespace RangeScalp
             this.longPositionsCount = positions.Count(x => x.Side == Side.Buy);
             this.shortPositionsCount = positions.Count(x => x.Side == Side.Sell);
 
-            if (!positions.Any())
+            if (positions.Length == 0)
                 this.waitClosePositions = false;
             this.inPosition = false;
+            this.openBuy = false;
+            this.openSell = false;
         }
 
         private void Core_OrdersHistoryAdded(OrderHistory obj)
@@ -229,11 +239,11 @@ namespace RangeScalp
         {
             double close_1 = HistoricalDataExtensions.Close(this.hdm, 1);
             double open_1 = HistoricalDataExtensions.Open(this.hdm, 1);
-            if (close_1 > open_1)
+            if (close_1 > open_1) // Green bar
             {
                 this.sellPermitted = true;
             }
-            else if (close_1 < open_1) 
+            else if (close_1 < open_1) // Red bar
             {
                 this.buyPermitted = true;
             }
@@ -241,43 +251,63 @@ namespace RangeScalp
         }
         private void OnUpdate()
         {
-
             double price = HistoricalDataExtensions.Close(this.hdm, 0);
 
-            if (price >= rangeHigh)
+            if (price >= this.rangeHigh)
             {
-                rangeHigh = price;
+                this.rangeHigh = price;
             }
-            if (price <= rangeLow)
+            if (price <= this.rangeLow)
             {
-                rangeLow = price;
+                this.rangeLow = price;
             }
 
-            //this.Log($"Buy Permitted: {buyPermitted}");
-            //this.Log($"Sell Permitted: {sellPermitted}");
-            this.Log($"Range High: {rangeHigh}");
-            this.Log($"Range Low: {rangeLow}");
-            this.Log($"Price: {price}");
+            this.Log($"Buy Permitted: {buyPermitted}");
+            this.Log($"Sell Permitted: {sellPermitted}");
+            //this.Log($"Range High: {this.rangeHigh}");
+            //this.Log($"Range Low: {this.rangeLow}");
+            //this.Log($"Price: {price}");
             //if (totalGrossPl >= 400 || totalGrossPl <= -200)
             //if (totalGrossPl >= 1000)
-            if (this.tradeCount >= 100)
+            //if (this.tradeCount >= 100)
+            if (totalGrossPl >= this.maxProfit || this.totalGrossPl <= this.maxLoss)
             {
                 return;
             }
             else
             {
                 var positions = Core.Instance.Positions.Where(x => x.Symbol == this.CurrentSymbol && x.Account == this.CurrentAccount).ToArray();
-                ////double pnlTicks = positions.Sum(x => x.GrossPnLTicks);
+                double pnlTicks = positions.Sum(x => x.GrossPnLTicks);
 
-                if (positions.Length != 0)
+                if (positions.Length != 0) //&& (pnlTicks / this.Quantity >= 6 || pnlTicks / this.Quantity <= 5))
                 {
                     return;
+                    //this.waitClosePositions = true;
+                    //this.Log($"Start close positions ({positions.Length})");
+
+                    //foreach (var item in positions)
+                    //{
+                    //    //item.StopLoss.Cancel(); // Doesn't work. Actually breaks the position close. Gotta find another way to do this here.
+                    //    var result = item.Close();
+
+                    //    if (result.Status == TradingOperationResultStatus.Failure)
+                    //    {
+                    //        this.Log($"Close positions refuse: {(string.IsNullOrEmpty(result.Message) ? result.Status : result.Message)}", StrategyLoggingLevel.Trading);
+                    //        this.ProcessTradingRefuse();
+                    //    }
+                    //    else
+                    //    {
+                    //        this.Log($"Position was close: {result.Status}", StrategyLoggingLevel.Trading);
+                    //        this.inPosition = false;
+                    //    }
+                    //}
                 }
                 else // Opening New Positions
                 {
-                    if (this.inPosition == false) //&& this.newBar == true
+                    //if (this.inPosition == false) //&& this.newBar == true
+                    if (true)
                     {
-                        if (this.buyPermitted == true && price >= rangeHigh) // might need price >= rangeHigh
+                        if (this.buyPermitted == true) // might need price >= rangeHigh //  && price >= rangeHigh
                         {
                             this.waitOpenPosition = true;
                             this.Log("Start open buy position");
@@ -287,9 +317,10 @@ namespace RangeScalp
                                 Symbol = this.CurrentSymbol,
                                 TakeProfit = SlTpHolder.CreateTP(takeProfit, PriceMeasurement.Offset),
                                 StopLoss = SlTpHolder.CreateSL(stopLoss, PriceMeasurement.Offset),
-                                OrderTypeId = this.orderTypeId,
+                                TriggerPrice = this.rangeHigh + .50,
                                 Quantity = this.Quantity,
                                 Side = Side.Buy,
+                                OrderTypeId = OrderType.Stop
                             });
 
                             if (result.Status == TradingOperationResultStatus.Failure)
@@ -304,11 +335,12 @@ namespace RangeScalp
                                 this.newBar = false;
                                 this.buyPermitted = false;
                                 this.tradeCount += 1;
+                                this.openBuy = true;
                                 //this.prevSide = "buy";
                                 //this.stopOrderId = result.OrderId; // Added from code to try and get stop order id for canceling stop order
                             }
                         }
-                        else if (this.sellPermitted == true && price <= rangeLow) // might need price <= rangeLow
+                        if (this.sellPermitted == true) // might need price <= rangeLow // && price <= rangeLow
                         {
                             this.waitOpenPosition = true;
                             this.Log("Start open sell position");
@@ -318,9 +350,10 @@ namespace RangeScalp
                                 Symbol = this.CurrentSymbol,
                                 TakeProfit = SlTpHolder.CreateTP(takeProfit, PriceMeasurement.Offset),
                                 StopLoss = SlTpHolder.CreateSL(stopLoss, PriceMeasurement.Offset),
-                                OrderTypeId = this.orderTypeId,
+                                TriggerPrice = this.rangeLow - .50,
                                 Quantity = this.Quantity,
                                 Side = Side.Sell,
+                                OrderTypeId = OrderType.Stop
                             });
 
                             if (result.Status == TradingOperationResultStatus.Failure)
@@ -335,6 +368,7 @@ namespace RangeScalp
                                 this.newBar = false;
                                 this.sellPermitted = false;
                                 this.tradeCount += 1;
+                                this.openSell = true;
                                 //this.prevSide = "sell";
                                 //this.stopOrderId = result.OrderId; // Added from code to try and get stop order id for canceling stop order
                             }

@@ -10,3 +10,16 @@ C:\Users\William\Documents\Visual Studio Repos\rangeScalpStrategy\rangeScalpStra
 C:\Users\William\Documents\Visual Studio Repos\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\refint\rangeScalpStrategy.dll
 C:\Users\William\Documents\Visual Studio Repos\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.pdb
 C:\Users\William\Documents\Visual Studio Repos\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\ref\rangeScalpStrategy.dll
+D:\Program Files (x86)\AMP Quantower\AMP Quantower\Settings\Scripts\Strategies\rangeScalpStrategy\rangeScalpStrategy.deps.json
+D:\Program Files (x86)\AMP Quantower\AMP Quantower\Settings\Scripts\Strategies\rangeScalpStrategy\rangeScalpStrategy.dll
+D:\Program Files (x86)\AMP Quantower\AMP Quantower\Settings\Scripts\Strategies\rangeScalpStrategy\rangeScalpStrategy.pdb
+D:\VS Studio Repos\Strategies\Quantower_Strategies\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.csproj.AssemblyReference.cache
+D:\VS Studio Repos\Strategies\Quantower_Strategies\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS Studio Repos\Strategies\Quantower_Strategies\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.AssemblyInfoInputs.cache
+D:\VS Studio Repos\Strategies\Quantower_Strategies\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.AssemblyInfo.cs
+D:\VS Studio Repos\Strategies\Quantower_Strategies\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.csproj.CoreCompileInputs.cache
+D:\VS Studio Repos\Strategies\Quantower_Strategies\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.sourcelink.json
+D:\VS Studio Repos\Strategies\Quantower_Strategies\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.dll
+D:\VS Studio Repos\Strategies\Quantower_Strategies\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\refint\rangeScalpStrategy.dll
+D:\VS Studio Repos\Strategies\Quantower_Strategies\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\rangeScalpStrategy.pdb
+D:\VS Studio Repos\Strategies\Quantower_Strategies\rangeScalpStrategy\rangeScalpStrategy\obj\Debug\ref\rangeScalpStrategy.dll

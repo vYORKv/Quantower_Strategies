@@ -9,18 +9,18 @@
     <AssemblyName>rangeScalpStrategy</AssemblyName>
     <RootNamespace>rangeScalpStrategy</RootNamespace>
     <StartAction>Program</StartAction>
-    <StartProgram>C:\Users\William\Desktop\AMP Quantower\TradingPlatform\v1.140.2\Console.StarterNew.exe</StartProgram>
-    <StartArguments>--address 127.0.0.1 --port 56726</StartArguments>
+    <StartProgram>D:\Program Files %28x86%29\AMP Quantower\AMP Quantower\TradingPlatform\v1.140.2\Console.StarterNew.exe</StartProgram>
+    <StartArguments>--address 127.0.0.1 --port 51441</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>C:\Users\William\Desktop\AMP Quantower\TradingPlatform\v1.140.2\..\..\Settings\Scripts\Strategies\rangeScalpStrategy</OutputPath>
+    <OutputPath>D:\Program Files %28x86%29\AMP Quantower\AMP Quantower\TradingPlatform\v1.140.2\..\..\Settings\Scripts\Strategies\rangeScalpStrategy</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>C:\Users\William\Desktop\AMP Quantower\TradingPlatform\v1.140.2\..\..\Settings\Scripts\Strategies\rangeScalpStrategy</OutputPath>
+    <OutputPath>D:\Program Files %28x86%29\AMP Quantower\AMP Quantower\TradingPlatform\v1.140.2\..\..\Settings\Scripts\Strategies\rangeScalpStrategy</OutputPath>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="TradingPlatform.BusinessLayer">
-      <HintPath>C:\Users\William\Desktop\AMP Quantower\TradingPlatform\v1.140.2\bin\TradingPlatform.BusinessLayer.dll</HintPath>
+      <HintPath>D:\Program Files (x86)\AMP Quantower\AMP Quantower\TradingPlatform\v1.140.2\bin\TradingPlatform.BusinessLayer.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
