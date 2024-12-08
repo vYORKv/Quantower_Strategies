@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("rangeScalpStrategy")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ed0ad901e40d1820054ad8e729262d17e15faa68")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d18ed539e13725081f7f6005c00f480765da4213")]
 [assembly: System.Reflection.AssemblyProductAttribute("rangeScalpStrategy")]
 [assembly: System.Reflection.AssemblyTitleAttribute("rangeScalpStrategy")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
