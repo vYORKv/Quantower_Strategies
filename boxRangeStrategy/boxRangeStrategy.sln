@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "boxRangeStrategy", "boxRangeStrategy\boxRangeStrategy.csproj", "{1DF60CC0-1077-42ED-928D-2F4793593CCC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1DF60CC0-1077-42ED-928D-2F4793593CCC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DF60CC0-1077-42ED-928D-2F4793593CCC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DF60CC0-1077-42ED-928D-2F4793593CCC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DF60CC0-1077-42ED-928D-2F4793593CCC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A63B347A-1355-4F81-9CB5-424C5407579C}
+	EndGlobalSection
+EndGlobal

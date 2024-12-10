@@ -1,0 +1,12 @@
+D:\Program Files (x86)\AMP Quantower\AMP Quantower\Settings\Scripts\Strategies\boxRangeStrategy\boxRangeStrategy.deps.json
+D:\Program Files (x86)\AMP Quantower\AMP Quantower\Settings\Scripts\Strategies\boxRangeStrategy\boxRangeStrategy.dll
+D:\Program Files (x86)\AMP Quantower\AMP Quantower\Settings\Scripts\Strategies\boxRangeStrategy\boxRangeStrategy.pdb
+D:\VS Studio Repos\Strategies\boxRangeStrategy\boxRangeStrategy\obj\Debug\boxRangeStrategy.csproj.AssemblyReference.cache
+D:\VS Studio Repos\Strategies\boxRangeStrategy\boxRangeStrategy\obj\Debug\boxRangeStrategy.GeneratedMSBuildEditorConfig.editorconfig
+D:\VS Studio Repos\Strategies\boxRangeStrategy\boxRangeStrategy\obj\Debug\boxRangeStrategy.AssemblyInfoInputs.cache
+D:\VS Studio Repos\Strategies\boxRangeStrategy\boxRangeStrategy\obj\Debug\boxRangeStrategy.AssemblyInfo.cs
+D:\VS Studio Repos\Strategies\boxRangeStrategy\boxRangeStrategy\obj\Debug\boxRangeStrategy.csproj.CoreCompileInputs.cache
+D:\VS Studio Repos\Strategies\boxRangeStrategy\boxRangeStrategy\obj\Debug\boxRangeStrategy.dll
+D:\VS Studio Repos\Strategies\boxRangeStrategy\boxRangeStrategy\obj\Debug\refint\boxRangeStrategy.dll
+D:\VS Studio Repos\Strategies\boxRangeStrategy\boxRangeStrategy\obj\Debug\boxRangeStrategy.pdb
+D:\VS Studio Repos\Strategies\boxRangeStrategy\boxRangeStrategy\obj\Debug\ref\boxRangeStrategy.dll

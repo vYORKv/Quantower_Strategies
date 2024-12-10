@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\VS Studio Repos\\Strategies\\boxRangeStrategy\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{1DF60CC0-1077-42ED-928D-2F4793593CCC}|boxRangeStrategy\\boxRangeStrategy.csproj|d:\\vs studio repos\\strategies\\boxrangestrategy\\boxrangestrategy\\boxrangestrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1DF60CC0-1077-42ED-928D-2F4793593CCC}|boxRangeStrategy\\boxRangeStrategy.csproj|solutionrelative:boxrangestrategy\\boxrangestrategy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "boxRangeStrategy.cs",
+              "DocumentMoniker": "D:\\VS Studio Repos\\Strategies\\boxRangeStrategy\\boxRangeStrategy\\boxRangeStrategy.cs",
+              "RelativeDocumentMoniker": "boxRangeStrategy\\boxRangeStrategy.cs",
+              "ToolTip": "D:\\VS Studio Repos\\Strategies\\boxRangeStrategy\\boxRangeStrategy\\boxRangeStrategy.cs",
+              "RelativeToolTip": "boxRangeStrategy\\boxRangeStrategy.cs",
+              "ViewState": "AQIAAP4AAAAAAAAAAAAmwKcBAAA8AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-08T20:42:25.204Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
