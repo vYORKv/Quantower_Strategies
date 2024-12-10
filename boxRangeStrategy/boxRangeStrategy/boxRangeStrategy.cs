@@ -92,6 +92,7 @@ namespace boxRangeStrategy
         private int initCounter = 0;
         private bool insideRange = false;
         private bool insideHalfRange  = false;
+        private string firstPosition = "none";
 
         public boxRangeStrategy()
             : base()
@@ -301,7 +302,7 @@ namespace boxRangeStrategy
                 //if (close_1 > open_1 && this.sellPlaced == false) // Green bar
                 if (this.insideRange == true)
                 {
-                    if (this.stopOrders == false)
+                    if (this.stopOrders == false) // && this.firstPosition != "buy"
                     {
                         this.waitOpenPosition = true;
                         this.Log("Start open sell position");
@@ -329,7 +330,7 @@ namespace boxRangeStrategy
                             this.sellPlaced = true;
                         }
                     }
-                    else
+                    else if (this.stopOrders == true) // && this.firstPosition != "buy"
                     {
                         this.waitOpenPosition = true;
                         this.Log("Start open sell position");
@@ -361,7 +362,7 @@ namespace boxRangeStrategy
                 //else if (close_1 < open_1 && this.buyPlaced == false) // Red bar
                 if (this.insideRange == true)
                 {
-                    if (this.stopOrders == false)
+                    if (this.stopOrders == false) // && this.firstPosition != "sell"
                     {
                         this.waitOpenPosition = true;
                         this.Log("Start open buy position");
@@ -389,7 +390,7 @@ namespace boxRangeStrategy
                             this.buyPlaced = true;
                         }
                     }
-                    else
+                    else if (this.stopOrders == true) // && this.firstPosition != "sell"
                     {
                         this.waitOpenPosition = true;
                         this.Log("Start open buy position");
@@ -432,7 +433,7 @@ namespace boxRangeStrategy
                 //if (close_1 > open_1 && this.halfSellPlaced == false && this.halfRangeLow != this.rangeLow) // Green bar
                 if (this.insideHalfRange == true)
                 {
-                    if (this.stopOrders == false)
+                    if (this.stopOrders == false) // && this.firstPosition != "buy"
                     {
                         this.waitOpenPosition = true;
                         this.Log("Start open sell position");
@@ -460,7 +461,7 @@ namespace boxRangeStrategy
                             this.sellPlaced = true;
                         }
                     }
-                    else
+                    else if (this.stopOrders == true) // && this.firstPosition != "buy"
                     {
                         this.waitOpenPosition = true;
                         this.Log("Start open sell position");
@@ -492,7 +493,7 @@ namespace boxRangeStrategy
                 //else if (close_1 < open_1 && this.halfBuyPlaced == false && this.halfRangeHigh != this.rangeHigh) // Red bar
                 if (this.insideHalfRange == true)
                 {
-                    if (this.stopOrders == false)
+                    if (this.stopOrders == false) // && this.firstPosition != "sell"
                     {
                         this.waitOpenPosition = true;
                         this.Log("Start open buy position");
@@ -520,7 +521,7 @@ namespace boxRangeStrategy
                             this.buyPlaced = true;
                         }
                     }
-                    else
+                    else if (this.stopOrders == true) // && this.firstPosition != "sell"
                     {
                         this.waitOpenPosition = true;
                         this.Log("Start open buy position");
@@ -556,6 +557,21 @@ namespace boxRangeStrategy
 
         private void OnUpdate()
         {
+            //if (this.firstPosition == "none")
+            //{
+            //    var positions = Core.Instance.Positions.Where(x => x.Symbol == this.CurrentSymbol && x.Account == this.CurrentAccount).ToArray();
+            //    int totalBuys = positions.Count(x => x.Side == Side.Buy);
+            //    int totalSells = positions.Count(x => x.Side == Side.Buy);
+            //    if (totalBuys > 0)
+            //    {
+            //        this.firstPosition = "buy";
+            //    }
+            //    else if (totalSells > 0)
+            //    {
+            //        this.firstPosition = "sell";
+            //    }
+            //}
+
             if (this.initCounter < this.updateCounter + 5)
             {
                 this.initCounter++;
@@ -572,6 +588,8 @@ namespace boxRangeStrategy
                 this.rangeLow = price;
             }
 
+            double open_1 = HistoricalDataExtensions.Open(this.hdm, 1);
+            double close_1 = HistoricalDataExtensions.Close(this.hdm, 1);
 
             double high_0 = HistoricalDataExtensions.High(this.hdm, 0);
             double low_0 = HistoricalDataExtensions.Low(this.hdm, 0);
@@ -595,9 +613,14 @@ namespace boxRangeStrategy
             double low_9 = HistoricalDataExtensions.Low(this.hdm, 9);
             double high_10 = HistoricalDataExtensions.High(this.hdm, 10);
             double low_10 = HistoricalDataExtensions.Low(this.hdm, 10);
+            double high_11 = HistoricalDataExtensions.High(this.hdm, 11);
+            double low_11 = HistoricalDataExtensions.Low(this.hdm, 11);
 
-            double[] fullRanges = [high_1, low_1, high_2, low_2, high_3, low_3, high_4, low_4, high_5, low_5, high_6, low_6, high_7, low_7, high_8, low_8, high_9, low_9, high_10, low_10];
-            double[] halfRanges = [high_1, low_1, high_2, low_2, high_3, low_3, high_4, low_4, high_5, low_5];
+            //double[] fullRanges = [high_1, low_1, high_2, low_2, high_3, low_3, high_4, low_4, high_5, low_5, high_6, low_6, high_7, low_7, high_8, low_8, high_9, low_9, high_10, low_10];
+            //double[] halfRanges = [high_1, low_1, high_2, low_2, high_3, low_3, high_4, low_4, high_5, low_5];
+
+            double[] fullRanges = [high_2, low_2, high_3, low_3, high_4, low_4, high_5, low_5, high_6, low_6, high_7, low_7, high_8, low_8, high_9, low_9, high_10, low_10, high_11, low_11];
+            double[] halfRanges = [high_2, low_2, high_3, low_3, high_4, low_4, high_5, low_5, high_6, low_6];
 
             if (this.halfRange == false)
             {
@@ -612,9 +635,12 @@ namespace boxRangeStrategy
                         this.rangeLow = fullRanges[i];
                     }
                 }
-                if (price < this.rangeHigh && price > this.rangeLow) //  && high_0 < this.rangeHigh && low_0 > this.rangeLow
+                if (close_1 < this.rangeHigh && open_1 < this.rangeHigh && close_1 > this.rangeLow && open_1 > this.rangeLow)
                 {
-                    this.insideRange = true;
+                    if (price < this.rangeHigh && price > this.rangeLow) //  && high_0 < this.rangeHigh && low_0 > this.rangeLow
+                    {
+                        this.insideRange = true;
+                    }
                 }
             }
             else if (this.halfRange == true)
@@ -630,9 +656,12 @@ namespace boxRangeStrategy
                         this.halfRangeLow = halfRanges[i];
                     }
                 }
-                if (price < this.halfRangeHigh && price > this.halfRangeLow) // && high_0 < this.halfRangeHigh && low_0 > this.halfRangeLow
+                if (close_1 < this.halfRangeHigh && open_1 < this.halfRangeHigh && close_1 > this.halfRangeLow && open_1 > this.halfRangeLow)
                 {
-                    this.insideHalfRange = true;
+                    if (price < this.halfRangeHigh && price > this.halfRangeLow) // && high_0 < this.halfRangeHigh && low_0 > this.halfRangeLow
+                    {
+                        this.insideHalfRange = true;
+                    }
                 }
             }
         }
