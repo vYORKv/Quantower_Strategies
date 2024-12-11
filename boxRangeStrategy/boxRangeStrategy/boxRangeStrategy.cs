@@ -310,8 +310,8 @@ namespace boxRangeStrategy
                         {
                             Account = this.CurrentAccount,
                             Symbol = this.CurrentSymbol,
-                            TakeProfit = SlTpHolder.CreateTP(bracketInTicks, PriceMeasurement.Offset),
-                            StopLoss = SlTpHolder.CreateSL(bracketInTicks, PriceMeasurement.Offset),
+                            TakeProfit = SlTpHolder.CreateTP(bracketInTicks + (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
+                            StopLoss = SlTpHolder.CreateSL(bracketInTicks - (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
                             Price = this.rangeHigh - (this.rangeOffsetTicks * .25),
                             OrderTypeId = OrderType.Limit,
                             Quantity = this.Quantity,
@@ -338,8 +338,8 @@ namespace boxRangeStrategy
                         {
                             Account = this.CurrentAccount,
                             Symbol = this.CurrentSymbol,
-                            TakeProfit = SlTpHolder.CreateTP(bracketInTicks, PriceMeasurement.Offset),
-                            StopLoss = SlTpHolder.CreateSL(bracketInTicks, PriceMeasurement.Offset),
+                            TakeProfit = SlTpHolder.CreateTP(bracketInTicks + (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
+                            StopLoss = SlTpHolder.CreateSL(bracketInTicks - (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
                             TriggerPrice = this.rangeLow - (this.rangeOffsetTicks * .25),
                             OrderTypeId = OrderType.Stop,
                             Quantity = this.Quantity,
@@ -370,8 +370,8 @@ namespace boxRangeStrategy
                         {
                             Account = this.CurrentAccount,
                             Symbol = this.CurrentSymbol,
-                            TakeProfit = SlTpHolder.CreateTP(bracketInTicks, PriceMeasurement.Offset),
-                            StopLoss = SlTpHolder.CreateSL(bracketInTicks, PriceMeasurement.Offset),
+                            TakeProfit = SlTpHolder.CreateTP(bracketInTicks - (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
+                            StopLoss = SlTpHolder.CreateSL(bracketInTicks + (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
                             Price = this.rangeLow + (this.rangeOffsetTicks * .25),
                             OrderTypeId = OrderType.Limit,
                             Quantity = this.Quantity,
@@ -398,8 +398,8 @@ namespace boxRangeStrategy
                         {
                             Account = this.CurrentAccount,
                             Symbol = this.CurrentSymbol,
-                            TakeProfit = SlTpHolder.CreateTP(bracketInTicks, PriceMeasurement.Offset),
-                            StopLoss = SlTpHolder.CreateSL(bracketInTicks, PriceMeasurement.Offset),
+                            TakeProfit = SlTpHolder.CreateTP(bracketInTicks - (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
+                            StopLoss = SlTpHolder.CreateSL(bracketInTicks + (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
                             TriggerPrice = this.rangeHigh + (this.rangeOffsetTicks * .25),
                             OrderTypeId = OrderType.Stop,
                             Quantity = this.Quantity,
@@ -441,8 +441,8 @@ namespace boxRangeStrategy
                         {
                             Account = this.CurrentAccount,
                             Symbol = this.CurrentSymbol,
-                            TakeProfit = SlTpHolder.CreateTP(halfBracketInTicks, PriceMeasurement.Offset),
-                            StopLoss = SlTpHolder.CreateSL(halfBracketInTicks, PriceMeasurement.Offset),
+                            TakeProfit = SlTpHolder.CreateTP(halfBracketInTicks + (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
+                            StopLoss = SlTpHolder.CreateSL(halfBracketInTicks - (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
                             Price = this.halfRangeHigh - (this.rangeOffsetTicks * .25),
                             OrderTypeId = OrderType.Limit,
                             Quantity = this.Quantity,
@@ -469,8 +469,8 @@ namespace boxRangeStrategy
                         {
                             Account = this.CurrentAccount,
                             Symbol = this.CurrentSymbol,
-                            TakeProfit = SlTpHolder.CreateTP(halfBracketInTicks, PriceMeasurement.Offset),
-                            StopLoss = SlTpHolder.CreateSL(halfBracketInTicks, PriceMeasurement.Offset),
+                            TakeProfit = SlTpHolder.CreateTP(halfBracketInTicks + (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
+                            StopLoss = SlTpHolder.CreateSL(halfBracketInTicks - (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
                             TriggerPrice = this.halfRangeLow - (this.rangeOffsetTicks * .25),
                             OrderTypeId = OrderType.Stop,
                             Quantity = this.Quantity,
@@ -501,8 +501,8 @@ namespace boxRangeStrategy
                         {
                             Account = this.CurrentAccount,
                             Symbol = this.CurrentSymbol,
-                            TakeProfit = SlTpHolder.CreateTP(halfBracketInTicks, PriceMeasurement.Offset),
-                            StopLoss = SlTpHolder.CreateSL(halfBracketInTicks, PriceMeasurement.Offset),
+                            TakeProfit = SlTpHolder.CreateTP(halfBracketInTicks - (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
+                            StopLoss = SlTpHolder.CreateSL(halfBracketInTicks + (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
                             Price = this.halfRangeLow + (this.rangeOffsetTicks * .25),
                             OrderTypeId = OrderType.Limit,
                             Quantity = this.Quantity,
@@ -529,8 +529,8 @@ namespace boxRangeStrategy
                         {
                             Account = this.CurrentAccount,
                             Symbol = this.CurrentSymbol,
-                            TakeProfit = SlTpHolder.CreateTP(halfBracketInTicks, PriceMeasurement.Offset),
-                            StopLoss = SlTpHolder.CreateSL(halfBracketInTicks, PriceMeasurement.Offset),
+                            TakeProfit = SlTpHolder.CreateTP(halfBracketInTicks - (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
+                            StopLoss = SlTpHolder.CreateSL(halfBracketInTicks + (this.rangeOffsetTicks * .25), PriceMeasurement.Offset),
                             TriggerPrice = this.halfRangeHigh + (this.rangeOffsetTicks * .25),
                             OrderTypeId = OrderType.Stop,
                             Quantity = this.Quantity,
@@ -590,6 +590,8 @@ namespace boxRangeStrategy
 
             double open_1 = HistoricalDataExtensions.Open(this.hdm, 1);
             double close_1 = HistoricalDataExtensions.Close(this.hdm, 1);
+            double open_2 = HistoricalDataExtensions.Open(this.hdm, 2);
+            double close_2 = HistoricalDataExtensions.Close(this.hdm, 2);
 
             double high_0 = HistoricalDataExtensions.High(this.hdm, 0);
             double low_0 = HistoricalDataExtensions.Low(this.hdm, 0);
@@ -635,12 +637,22 @@ namespace boxRangeStrategy
                         this.rangeLow = fullRanges[i];
                     }
                 }
-                if (close_1 < this.rangeHigh && open_1 < this.rangeHigh && close_1 > this.rangeLow && open_1 > this.rangeLow)
+                //if (close_1 < this.rangeHigh && open_1 < this.rangeHigh && close_1 > this.rangeLow && open_1 > this.rangeLow)
+                if (high_1 < this.rangeHigh && low_1 > this.rangeLow)
+                //if (high_1 < this.rangeHigh && low_1 > this.rangeLow && open_2 < this.rangeHigh && close_2 < this.rangeHigh && open_2 > this.rangeLow && close_2 > this.rangeLow)
                 {
                     if (price < this.rangeHigh && price > this.rangeLow) //  && high_0 < this.rangeHigh && low_0 > this.rangeLow
                     {
                         this.insideRange = true;
                     }
+                    else
+                    {
+                        this.insideRange = false;
+                    }
+                }
+                else
+                {
+                    this.insideRange = false;
                 }
             }
             else if (this.halfRange == true)
@@ -656,12 +668,22 @@ namespace boxRangeStrategy
                         this.halfRangeLow = halfRanges[i];
                     }
                 }
-                if (close_1 < this.halfRangeHigh && open_1 < this.halfRangeHigh && close_1 > this.halfRangeLow && open_1 > this.halfRangeLow)
+                //if (close_1 < this.halfRangeHigh && open_1 < this.halfRangeHigh && close_1 > this.halfRangeLow && open_1 > this.halfRangeLow)
+                if (high_1 < this.halfRangeHigh && low_1 > this.halfRangeLow)
+                //if (high_1 < this.halfRangeHigh && low_1 > this.halfRangeLow && open_2 < this.halfRangeHigh && close_2 < this.halfRangeHigh && open_2 > this.halfRangeLow && close_2 > this.halfRangeLow)
                 {
                     if (price < this.halfRangeHigh && price > this.halfRangeLow) // && high_0 < this.halfRangeHigh && low_0 > this.halfRangeLow
                     {
                         this.insideHalfRange = true;
                     }
+                    else
+                    {
+                        this.insideHalfRange = false;
+                    }
+                }
+                else
+                {
+                    this.insideHalfRange = false;
                 }
             }
         }

@@ -10,7 +10,7 @@
     <RootNamespace>boxRangeStrategy</RootNamespace>
     <StartAction>Program</StartAction>
     <StartProgram>D:\Program Files %28x86%29\AMP Quantower\AMP Quantower\TradingPlatform\v1.140.2\Console.StarterNew.exe</StartProgram>
-    <StartArguments>--address 127.0.0.1 --port 54218</StartArguments>
+    <StartArguments>--address 127.0.0.1 --port 53250</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>D:\Program Files %28x86%29\AMP Quantower\AMP Quantower\TradingPlatform\v1.140.2\..\..\Settings\Scripts\Strategies\boxRangeStrategy</OutputPath>
